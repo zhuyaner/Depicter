@@ -1,11 +1,18 @@
 # Depicter
 Requirements
+
  h5py==2.9.0rc1
+ 
  Keras==2.1.1
+ 
  numpy==1.16.5
+ 
  pandas==0.25.1
+ 
  scikit-learn==0.21.3
+ 
  scipy==1.3.1
+ 
  tensorflow==1.13.1
 
 
