@@ -21,7 +21,7 @@ as follows:
 Using TensorFlow backend.
 usage: prom_pred.py [-h] --input INPUTFILE [--output OUTPUTFILE]  --species SPECIESFILE [--type TYPEFILE]
 
-DEPICTER: a multiple deep neural networks learning-based approach for predicting eukaryotic promoters
+Depicter: a multiple deep neural networks learning-based approach for predicting eukaryotic promoters
 
 optional arguments:
   -h, --help            show this help message and exit
