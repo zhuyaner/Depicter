@@ -66,7 +66,7 @@ def CapsNet(input_shape, n_class, routings, modeltype, power=2):
 
 
 def CapsNet_nogradientstop(input_shape, n_class,
-                           routings):  # best testing results! val 0.13xx testX cnn1 200 1 cnn2 150 9 drop1 0.68 drop20.68 n_channels 50 kernel_size 20,dropout1
+                           routings): 
     x = layers.Input(shape=input_shape)
     conv1 = layers.Conv1D(filters=200, kernel_size=1, strides=1, padding='valid', kernel_initializer='he_normal',
                           activation='relu', name='conv1')(x)
@@ -112,7 +112,7 @@ def CapsNet_nogradientstop(input_shape, n_class,
 
 
 def CapsNet_nogradientstop_crossentropy(input_shape, n_class,
-                                        routings):  # best testing results! val 0.13xx testX cnn1 200 1 cnn2 150 9 drop1 0.68 drop20.68 n_channels 50 kernel_size 20,dropout1
+                                        routings):
     x = layers.Input(shape=input_shape)
     conv1 = layers.Conv1D(filters=200, kernel_size=1, strides=1, padding='valid', kernel_initializer='he_normal',
                           activation='relu', name='conv1')(x)
