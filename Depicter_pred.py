@@ -12,7 +12,7 @@ import argparse
 import csv
 import keras
 from keras.models import load_model
-
+import collections
 def binary(sequences):
     AA = 'ACGT'
     binary_feature = []
@@ -25,8 +25,13 @@ def binary(sequences):
         binary_feature.append(binary)
     return binary_feature
 
+def fun(x):
+    res = []
+    for i in range(len(x)-299):
+        res.append(x[i:i+300])
+    return res
 
-def read_fasta(inputfile):
+def read_fasta(inputfile, seq_type=None):
     if os.path.exists(inputfile) == False:
         print('Error: file " %s " does not exist.' % inputfile)
         sys.exit(1)
@@ -35,7 +40,6 @@ def read_fasta(inputfile):
     if re.search('>', record[0]) == None:
         print('Error: the input file " %s " must be fasta format!' % inputfile)
         sys.exit(1)
-
     data = {}
     for line in record:
         if line.startswith('>'):
@@ -43,23 +47,33 @@ def read_fasta(inputfile):
             data[name] = ''
         else:
             data[name] += line.replace('\n', '')
-    return data
-
+    if seq_type!=None:
+        return data
+    else:
+        sub_data = {}
+        for key in data.keys():
+            seq = data[key]
+            if len(seq)<=300:
+                sub_data[key] = seq
+            else:
+                for j in range(0, len(seq)-300+1):
+                    sub_seq = seq[j:j+300]
+                    sub_data[key+'_'+str(j)] = sub_seq
+        return sub_data
 
 def extract_features(data):
     sequences = data
     feature_vector = np.vstack(binary(sequences))
     return feature_vector
 
-
 def main():
     parser = argparse.ArgumentParser(description='DEPICTER: A multiple deep neural networks learning-based approach for predicting eukaryotic promoters')
     parser.add_argument('--input',dest='inputfile',type=str,required=True,help='query sequences to be predicted in fasta format.')
     parser.add_argument('--output',dest='outputfile',type=str,required=False,help='save the prediction results.')
-
     parser.add_argument('--species', dest='speciesfile', type=str, required=False,
                         help='--species indicates the specific species, currently we accept \'Human\' or \'Mouse\' or \'Arabidopsis\' or \'Drosophila\'.\n \
                         if --kinds is \'prokaryotic\', you do not enter this item.', default=None)
+    parser.add_argument('--seq_type', dest='seq_type', type=str, required=True, choices=['full_length', 'fixed_length'])
     parser.add_argument('--type', dest='typefile', type=str, required=False,
                         help='sequences type that to be predicted, and we accept \'TATA+\' or \'TATA-\' or \'TATA+_TATA-\'\n ', default=None)
     parser.add_argument('--select_all', type=str, required=False, help='If select all species or all types.')
@@ -69,7 +83,11 @@ def main():
     outputfile = args.outputfile
     speciesfile = args.speciesfile
     typefile = args.typefile
-    data = read_fasta(inputfile)
+    seqtype = None
+    if args.seq_type=='fixed_length':
+        seqtype = 'fl'
+    data = read_fasta(inputfile, seqtype)
+
     outputfile_original = outputfile
     if outputfile_original==None:
         outputfile_original = ''
@@ -161,7 +179,7 @@ def main():
                     elif typefile == 'TATA+_TATA-':
                         from capsulenet_Com import Capsnet_main
                         model = "nogradientstop"
-                        model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=7,                                         lam_recon=0.5, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
+                        model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=7,lam_recon=0.5, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
                         model[1].load_weights(r'DrosophilaCom.h5')
                         predictions, score = model[1].predict(ppp)
                 decision = []
@@ -274,7 +292,7 @@ def main():
                     elif typefile == 'TATA+_TATA-':
                         from capsulenet_Com import Capsnet_main
                         model = "nogradientstop"
-                        model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=7,                                         lam_recon=0.5, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
+                        model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=7,  lam_recon=0.5, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
                         model[1].load_weights(r'DrosophilaCom.h5')
                         predictions, score = model[1].predict(ppp)
                 decision = []
@@ -385,7 +403,7 @@ def main():
                 elif typefile == 'TATA+_TATA-':
                     from capsulenet_Com import Capsnet_main
                     model = "nogradientstop"
-                    model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=7,                                         lam_recon=0.5, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
+                    model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=7,lam_recon=0.5, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
                     model[1].load_weights(r'DrosophilaCom.h5')
                     predictions, score = model[1].predict(ppp)
             decision = []
@@ -414,8 +432,6 @@ def main():
     except Exception as e:
         print('Please check the format of your predicting data!')
         sys.exit(1)
-
-
 
 if __name__ == "__main__":
     main()
