@@ -111,76 +111,76 @@ def main():
                         model = "nogradientstop"
                         from capsulenet_With import Capsnet_main
                         model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=7, lam_recon=0.5, routings=3, modeltype=model, nb_classes=2, predict=True)  # only to get config
-                        model[1].load_weights(r'HumanWith.h5')
+                        model[1].load_weights(r'H.sapiens_TATA.h5')
                         predictions, score = model[1].predict(ppp)
                     elif typefile == 'TATA-':
                         from capsulenet_Non import Capsnet_main
                         model = "nogradientstop"
                         model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=7,lam_recon=0.5, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
-                        model[1].load_weights(r'HumanNon.h5')
+                        model[1].load_weights(r'H.sapiens_Non_TATA.h5')
                         predictions, score = model[1].predict(ppp)
                     elif typefile == 'TATA+_TATA-':
                         from capsulenet_Com import Capsnet_main
                         model = "nogradientstop"
                         model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=7,lam_recon=0.5, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
-                        model[1].load_weights(r'HumanCom.h5')
+                        model[1].load_weights(r'H.sapiens_All.h5')
                         predictions, score = model[1].predict(ppp)
                 elif speciesfile == 'Mouse':
                     if typefile == 'TATA+':
                         from capsulenet_With import Capsnet_main
                         model = "nogradientstop"
                         model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=64,lam_recon=0.01, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
-                        model[1].load_weights(r'MouseWith.h5')
+                        model[1].load_weights(r'M. musculus_TATA.h5')
                         predictions, score = model[1].predict(ppp)
                     elif typefile == 'TATA-':
                         from capsulenet_Non import Capsnet_main
                         model = "nogradientstop"
                         model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=58,lam_recon=0.5, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
-                        model[1].load_weights(r'MouseNon.h5')
+                        model[1].load_weights(r'M. musculus_Non_TATA.h5')
                         predictions, score = model[1].predict(ppp)
                     elif typefile == 'TATA+_TATA-':
                         from capsulenet_Com import Capsnet_main
                         model = "nogradientstop"
                         model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=7,lam_recon=0.5, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
-                        model[1].load_weights(r'MouseCom.h5')
+                        model[1].load_weights(r'M. musculus_All.h5')
                         predictions, score = model[1].predict(ppp)
                 elif speciesfile == 'Arabidopsis':
                     if typefile == 'TATA+':
                         from capsulenet_With import Capsnet_main
                         model = "nogradientstop"
                         model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.000216, batch_size=45,lam_recon=0.4993, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
-                        model[1].load_weights(r'ArabidopsisWith.h5')
+                        model[1].load_weights(r'A. thaliana_TATA.h5')
                         predictions, score = model[1].predict(ppp)
                     elif typefile == 'TATA-':
                         from capsulenet_Non import Capsnet_main
                         model = "nogradientstop"
                         model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=7,lam_recon=0.5, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
-                        model[1].load_weights(r'ArabidopsisNon.h5')
+                        model[1].load_weights(r'A. thaliana_Non_TATA.h5')
                         predictions, score = model[1].predict(ppp)
                     elif typefile == 'TATA+_TATA-':
                         from capsulenet_Com import Capsnet_main
                         model = "nogradientstop"
                         model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=7,lam_recon=0.5, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
-                        model[1].load_weights(r'ArabidopsisCon.h5')
+                        model[1].load_weights(r'A. thaliana_All.h5')
                         predictions, score = model[1].predict(ppp)
                 elif speciesfile == 'Drosophila':
                     if typefile == 'TATA+':
                         from capsulenet_With import Capsnet_main
                         model = "nogradientstop"
                         model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=7,lam_recon=0.5, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
-                        model[1].load_weights(r'DrosophilaWith.h5')
+                        model[1].load_weights(r'D. melanogaster_TATA.h5')
                         predictions, score = model[1].predict(ppp)
                     elif typefile == 'TATA-':
                         from capsulenet_Non import Capsnet_main
                         model = "nogradientstop"
                         model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=7,lam_recon=0.5, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
-                        model[1].load_weights(r'DrosophilaNon.h5')
+                        model[1].load_weights(r'D. melanogaster_Non_TATA.h5')
                         predictions, score = model[1].predict(ppp)
                     elif typefile == 'TATA+_TATA-':
                         from capsulenet_Com import Capsnet_main
                         model = "nogradientstop"
                         model = Capsnet_main(ppp, y, nb_epoch=1, compiletimes=0, lr=0.0001, batch_size=7,lam_recon=0.5, routings=3,modeltype=model, nb_classes=2, predict=True)  # only to get config
-                        model[1].load_weights(r'DrosophilaCom.h5')
+                        model[1].load_weights(r'D. melanogaster_All.h5')
                         predictions, score = model[1].predict(ppp)
                 decision = []
                 for i in range(len(predictions)):
